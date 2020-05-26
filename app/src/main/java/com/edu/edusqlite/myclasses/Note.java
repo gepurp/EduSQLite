@@ -4,28 +4,27 @@ import androidx.annotation.NonNull;
 
 public class Note {
 
-    //private static int ID = 0;
+    private int noteID;
     private String noteTitle;
     private String noteText;
     private String notePurpose;
 
-    public Note(String noteTitle, String noteText, String notePurpose) {
+    public Note(int noteID, String noteTitle, String noteText, String notePurpose) {
 
+        setNoteID(noteID);
         setNoteTitle(noteTitle);
         setNoteText(noteText);
         setNotePurpose(notePurpose);
-        //ID++;
+
     }
 
-    /*
-    public static int getId() {
-        return ID;
+    public int getNoteID() {
+        return noteID;
     }
 
-    public static void setId(int id) {
-        Note.id = ID;
+    public void setNoteID(int noteID) {
+        this.noteID = noteID;
     }
-    */
 
     public String getNoteTitle() {
         return noteTitle;
