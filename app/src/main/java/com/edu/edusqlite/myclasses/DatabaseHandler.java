@@ -90,5 +90,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return notes;
     }
 
+    public Note returnNoteObjectByID(int id) {
+        SQLiteDatabase database = getWritableDatabase();
+        String sqlQueryCommand = "select * from " +
+                NOTES_TABLE + " where " +
+                ID_KEY + " = " + id;
+        Cursor cursor = database.rawQuery(sqlQueryCommand, null);
 
+        Note noteObject = null;
+
+        if (cursor.moveToFirst()) {
+            noteObject = new Note(
+                    Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3));
+        }
+
+        database.close();
+
+        return noteObject;
+    }
 }

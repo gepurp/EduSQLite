@@ -9,15 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.edu.edusqlite.myclasses.DatabaseHandler;
 import com.edu.edusqlite.myclasses.Note;
 
 public class AddNoteActivity extends AppCompatActivity {
 
     // UI components declaration
-    private EditText edtNoteTitle;
-    private EditText edtNoteText;
-    private EditText edtNotePurpose;
-    private Button btnAddNote;
+    EditText edtNoteTitle;
+    EditText edtNoteText;
+    EditText edtNotePurpose;
+    Button btnAddNote;
+
+    // Database reference
+    DatabaseHandler databaseHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,9 @@ public class AddNoteActivity extends AppCompatActivity {
         edtNotePurpose = findViewById(R.id.edtNotePurpose);
         btnAddNote = findViewById(R.id.btnAddNote);
 
+        // Database instance
+        databaseHandler = new DatabaseHandler(AddNoteActivity.this);
+
         btnAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +58,13 @@ public class AddNoteActivity extends AppCompatActivity {
         String notePurposeValue = edtNotePurpose.getText() + "";
 
         try {
-            Note noteObject = new Note(noteTitleValue, noteTextValue, notePurposeValue);
+
+            Note noteObject = new Note(0, noteTitleValue, noteTextValue, notePurposeValue);
+            databaseHandler.addNote(noteObject);
+            Toast.makeText(AddNoteActivity.this,
+                    "Note was saved to database",
+                    Toast.LENGTH_LONG).show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
