@@ -49,4 +49,11 @@ public class Note {
     public void setNotePurpose(String notePurpose) {
         this.notePurpose = notePurpose;
     }
+
+    public String getAllInfo() {
+        return getNoteID() + "\n" +
+                getNoteTitle() + "\n" +
+                getNoteText() + "\n" +
+                getNotePurpose();
+    }
 }
