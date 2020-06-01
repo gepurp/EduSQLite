@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_delete:
+                Intent intent1 = new Intent(MainActivity.this, DeleteNoteActivity.class);
+                startActivity(intent1);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
