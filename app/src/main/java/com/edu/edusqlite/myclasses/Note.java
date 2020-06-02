@@ -51,9 +51,9 @@ public class Note {
     }
 
     public String getAllInfo() {
-        return getNoteID() + "\n" +
-                getNoteTitle() + "\n" +
-                getNoteText() + "\n" +
+        return getNoteID() + " | " +
+                getNoteTitle() + " | " +
+                getNoteText() + " | " +
                 getNotePurpose();
     }
 }

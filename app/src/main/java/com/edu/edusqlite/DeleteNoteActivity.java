@@ -32,12 +32,15 @@ public class DeleteNoteActivity extends AppCompatActivity {
     }
 
     public void updateUserInterface() {
-        ArrayList<Note> allNotes = databaseHandler.returnAllNotes();
+        ArrayList<Note> allNoteObjects = databaseHandler.returnAllNotes();
+
         RelativeLayout relativeLayout = new RelativeLayout(DeleteNoteActivity.this);
+
         ScrollView scrollView = new ScrollView(DeleteNoteActivity.this);
+
         RadioGroup radioGroup = new RadioGroup(DeleteNoteActivity.this);
 
-        for (Note note : allNotes) {
+        for (Note note : allNoteObjects) {
 
             RadioButton radioButton = new RadioButton(DeleteNoteActivity.this);
             radioButton.setId(note.getNoteID());
@@ -59,9 +62,19 @@ public class DeleteNoteActivity extends AppCompatActivity {
 
         scrollView.addView(radioGroup);
 
-        ScrollView.LayoutParams scrollViewParam = new ScrollView.LayoutParams(
+        ScrollView.LayoutParams scrollViewParams =
+                new ScrollView.LayoutParams(
                         ScrollView.LayoutParams.MATCH_PARENT,
                         ScrollView.LayoutParams.MATCH_PARENT);
+
+        RelativeLayout.LayoutParams relativeLayoutParams =
+                new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.MATCH_PARENT);
+
+        relativeLayout.setLayoutParams(relativeLayoutParams);
+
+        scrollView.setLayoutParams(scrollViewParams);
 
         relativeLayout.addView(scrollView);
 
