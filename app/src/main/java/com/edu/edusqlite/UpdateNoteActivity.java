@@ -2,9 +2,12 @@ package com.edu.edusqlite;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Point;
 import android.net.IpSecManager;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.GridLayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,11 +51,51 @@ public class UpdateNoteActivity extends AppCompatActivity implements View.OnClic
             TextView[] idTextViews = new TextView[noteObjects.size()];
 
             // Set edit text for title, text and purpose of note
-            EditText[][] edtNoteObjects = new EditText[noteObjects.size()][3];
+            EditText[][] edtNoteProperties = new EditText[noteObjects.size()][3];
 
             // Set modify button for each note
             Button[] modifyButton = new Button[noteObjects.size()];
 
+            Point screenSize = new Point();
+            getWindowManager().getDefaultDisplay().getSize(screenSize);
+
+            int screenWidth = screenSize.x;
+            int index = 0;
+
+            for(Note currentNoteObject : noteObjects) {
+
+                idTextViews[index] = new TextView(UpdateNoteActivity.this);
+                idTextViews[index].setGravity(Gravity.CENTER);
+                idTextViews[index].setText(currentNoteObject.getNoteID());
+
+                edtNoteProperties[index][0] = new EditText(UpdateNoteActivity.this);
+                edtNoteProperties[index][1] = new EditText(UpdateNoteActivity.this);
+                edtNoteProperties[index][2] = new EditText(UpdateNoteActivity.this);
+
+                edtNoteProperties[index][0].setText(currentNoteObject.getNoteTitle());
+                edtNoteProperties[index][1].setText(currentNoteObject.getNoteText());
+                edtNoteProperties[index][2].setText(currentNoteObject.getNotePurpose());
+
+                edtNoteProperties[index][0].setId(currentNoteObject.getNoteID() + 10);
+                edtNoteProperties[index][1].setId(currentNoteObject.getNoteID() + 20);
+                edtNoteProperties[index][2].setId(currentNoteObject.getNoteID() + 30);
+
+                modifyButton[index] = new Button(UpdateNoteActivity.this);
+                modifyButton[index].setText("Modify");
+                modifyButton[index].setId(currentNoteObject.getNoteID());
+                modifyButton[index].setOnClickListener(UpdateNoteActivity.this);
+
+                gridLayout.addView(idTextViews[index],
+                        screenWidth / 8,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                gridLayout.addView(edtNoteProperties[index][0],
+                        (int) (screenWidth * 0.28),
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+
+
+
+                index++;
+            }
 
         }
     }
